@@ -42,11 +42,23 @@ namespace TelegramBot
         /// <param name="webClient">Web поток</param>
         /// <param name="metod">Название метода</param>
         /// <returns></returns>
-        public  string TelegramBotMetod(WebClient webClient, string metod)
+        public  string TelegramBotMetod(ref WebClient webClient, ref string metod)
         {
             string url = $"{this._startUrl}{metod}?offset={this._update_id}";
             string r = webClient.DownloadString(url);
             return r;
+        }
+
+        /// <summary>
+        /// Парсинг данных
+        /// </summary>
+        /// <param name="str">Строка с данными</param>
+        /// <returns></returns>
+        public  JToken[] DataParsing(string str)
+        {
+            var msgs = JObject.Parse(str)["result"].ToArray();
+
+            return msgs;
         }
         #endregion
     }
