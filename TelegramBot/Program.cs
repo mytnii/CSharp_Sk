@@ -37,6 +37,7 @@ namespace TelegramBot
     {
         static void Main(string[] args)
         {
+            TelegramBot.Menu();
         }
     }
 }
