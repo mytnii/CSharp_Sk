@@ -37,7 +37,6 @@ namespace TelegramBot
     {
         static void Main(string[] args)
         {
-
         }
     }
 }
