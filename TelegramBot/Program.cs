@@ -23,13 +23,13 @@ Telegram.
 выводить курс криптовалют, отображать данные о погоде и так далее.
  */
 
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Net;
-using System.Text;
-using System.Linq;
- using Telegram.Bot;
-using System.Net.Http;
+using Telegram.Bot;
+using Telegram.Bot.Extensions.Polling;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace TelegramBot
 {
@@ -37,7 +37,7 @@ namespace TelegramBot
     {
         static void Main(string[] args)
         {
-            TelegramBot.Menu();
+
         }
     }
 }
