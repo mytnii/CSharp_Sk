@@ -18,6 +18,15 @@ namespace TelegramBot
 
         #endregion
 
-        
+        #region Классы
+
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
+        public Bot()
+        {
+            _bot = new TelegramBotClient(@"C:\Test\token.txt");
+        }
+        #endregion
     }
 }
