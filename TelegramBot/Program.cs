@@ -37,6 +37,8 @@ namespace TelegramBot
     {
         static void Main(string[] args)
         {
+            // Создаем Телеграм бота
+            Bot bot = new Bot();
         }
     }
 }
