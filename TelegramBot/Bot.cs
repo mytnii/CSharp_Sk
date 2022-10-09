@@ -23,6 +23,13 @@ namespace TelegramBot
 
         #endregion
 
+        #region Свойства
+        public ITelegramBotClient TBot
+        {
+            get { return _bot; }
+        }
+        #endregion
+
         #region Конструкторы
 
         /// <summary>
