@@ -44,7 +44,20 @@ namespace TelegramBot
             ITelegramBotClient botClient, Update update,CancellationToken cancellationToken
             )
         {
+            if(update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
+            {
+                var message = update.Message;
 
+                switch (message.Text.ToLower())
+                {
+                    case "/start":
+                        await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать");
+                        break;
+                    default:
+                        break;
+                }
+
+            }
         }
         #endregion
     }
