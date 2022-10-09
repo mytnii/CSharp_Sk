@@ -39,6 +39,32 @@ namespace TelegramBot
         {
             // Создаем Телеграм бота
             Bot bot = new Bot();
+
+            // Вывводим на консоль имя запущенного бота
+            ConsoleOperation.ConsoleOutput($"Запущен бот {bot.TBot.GetMeAsync().Result.FirstName}");
+
+            //Создаем обект управления и посылки уведомлений об отмене
+            var cts = new CancellationTokenSource();
+
+            // Получаем токен и передаем его в задачу, которая может быть отменена
+            var cancellationToken = cts.Token;
+
+            //Создаем параметры приема
+            var receiverOptions = new ReceiverOptions
+            {
+                AllowedUpdates = { },  // Получаем все обновления
+            };
+
+            // Получаем и обрабатываем сообщения
+            bot.TBot.StartReceiving
+                (
+                Bot.HandleUpdateAsync,
+                Bot.HandleErrorAsync,
+                receiverOptions,
+                cancellationToken
+                );
+
+            Console.ReadLine();
         }
     }
 }
