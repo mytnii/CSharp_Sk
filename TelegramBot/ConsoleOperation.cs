@@ -17,7 +17,7 @@ namespace TelegramBot
         /// Вывод в консоль
         /// </summary>
         /// <param name="str">Строка</param>
-        public static void ConsoleOutput(ref string str)
+        public static void ConsoleOutput(string str)
         {
             Console.WriteLine(str);
         }
