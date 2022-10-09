@@ -65,6 +65,7 @@ namespace TelegramBot
                         await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать {message.From.FirstName}");
                         break;
                     default:
+                        await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
                         break;
                 }
 
