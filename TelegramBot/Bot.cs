@@ -62,7 +62,7 @@ namespace TelegramBot
                 switch (message.Text.ToLower())
                 {
                     case "/start":
-                        await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать");
+                        await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать {message.From.FirstName}");
                         break;
                     default:
                         break;
