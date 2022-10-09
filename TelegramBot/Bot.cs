@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace TelegramBot
 {
@@ -18,7 +19,7 @@ namespace TelegramBot
 
         #endregion
 
-        #region Классы
+        #region Конструкторы
 
         /// <summary>
         /// Конструктор по умолчанию
@@ -26,6 +27,24 @@ namespace TelegramBot
         public Bot()
         {
             _bot = new TelegramBotClient(@"C:\Test\token.txt");
+        }
+        #endregion
+
+        #region Методы
+
+        /// <summary>
+        /// Обработка обновлений
+        /// </summary>
+        /// <param name="botClient">Телеграм бот</param>
+        /// <param name="update">Обновление</param>
+        /// <param name="cancellationToken">Отмена задачи</param>
+        /// <returns></returns>
+        public static async Task HandleUpdateAsync
+            (
+            ITelegramBotClient botClient, Update update,CancellationToken cancellationToken
+            )
+        {
+
         }
         #endregion
     }
