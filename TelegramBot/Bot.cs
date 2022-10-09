@@ -76,7 +76,7 @@ namespace TelegramBot
             ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken
             )
         {
-
+            ConsoleOperation.ConsoleOutput(Newtonsoft.Json.JsonConvert.SerializeObject(exception));
         }
         #endregion
     }
