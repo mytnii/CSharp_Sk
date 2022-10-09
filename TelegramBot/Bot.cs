@@ -59,6 +59,14 @@ namespace TelegramBot
 
             }
         }
+
+        public static async Task HandleErrorAsync
+            (
+            ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken
+            )
+        {
+
+        }
         #endregion
     }
 }
