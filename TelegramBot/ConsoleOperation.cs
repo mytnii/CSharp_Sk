@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TelegramBot
 {
+    /// <summary>
+    /// Работа с консолью
+    /// </summary>
     internal class ConsoleOperation
     {
         #region Методы
