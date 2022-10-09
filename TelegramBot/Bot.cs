@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net;
 using Telegram.Bot;
+using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace TelegramBot
 {
@@ -15,7 +19,7 @@ namespace TelegramBot
     {
         #region Поля
 
-         private static ITelegramBotClient _bot;   // Телеграм бот 
+         private  ITelegramBotClient _bot;   // Телеграм бот 
 
         #endregion
 
@@ -26,7 +30,7 @@ namespace TelegramBot
         /// </summary>
         public Bot()
         {
-            _bot = new TelegramBotClient(@"C:\Test\token.txt");
+            _bot = new TelegramBotClient(System.IO.File.ReadAllText(@"C:\Test\token.txt"));
         }
         #endregion
 
@@ -60,6 +64,13 @@ namespace TelegramBot
             }
         }
 
+        /// <summary>
+        /// Обработка ошибок
+        /// </summary>
+        /// <param name="botClient">Телеграм бот</param>
+        /// <param name="exception">Обновление</param>
+        /// <param name="cancellationToken">Отмена задачи</param>
+        /// <returns></returns>
         public static async Task HandleErrorAsync
             (
             ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken
