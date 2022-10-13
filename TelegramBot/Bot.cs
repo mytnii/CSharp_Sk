@@ -75,6 +75,12 @@ namespace TelegramBot
                             break;
                     } 
                 }
+                else if(message.Document != null)
+                {
+                    DownloadFile(botClient, message.Document.FileId, message.Document.FileName);
+
+                    await botClient.SendTextMessageAsync(message.Chat, "Документ скачан");
+                }
             }
 
         }
@@ -85,10 +91,10 @@ namespace TelegramBot
         /// <param name="botClient">Телеграм бот</param>
         /// <param name="message">ID файла</param>
         /// <returns></returns>
-        public static async Task DownloadFile(ITelegramBotClient botClient, String message)
+        public static async Task DownloadFile(ITelegramBotClient botClient, String fileID, string fileName)
         {
-            var file = await botClient.GetFileAsync(message);
-            FileStream fileStream = new FileStream( message, FileMode.Create);
+            var file = await botClient.GetFileAsync(fileID);
+            FileStream fileStream = new FileStream( fileName, FileMode.Create);
             await botClient.DownloadFileAsync(file.FilePath, fileStream);
             fileStream.Close();
 
