@@ -19,7 +19,7 @@ namespace TelegramBot
     {
         #region Поля
 
-         private  ITelegramBotClient _bot;   // Телеграм бот 
+         private  static ITelegramBotClient _bot;   // Телеграм бот 
 
         #endregion
 
@@ -55,21 +55,44 @@ namespace TelegramBot
             ITelegramBotClient botClient, Update update,CancellationToken cancellationToken
             )
         {
-            if(update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
+            // Обработка сообщений
+            if(update.Type == UpdateType.Message)
             {
+                //Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
                 var message = update.Message;
 
-                switch (message.Text.ToLower())
-                {
-                    case "/start":
-                        await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать {message.From.FirstName}");
-                        break;
-                    default:
-                        await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
-                        break;
-                }
+                // Обработка сообщений
 
+                if (message.Text != null)
+                {
+                    switch (message.Text.ToLower())
+                    {
+                        case "/start":
+                            await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать {message.From.FirstName}");
+                            break;
+                        default:
+                            await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
+                            break;
+                    } 
+                }
             }
+
+        }
+
+        /// <summary>
+        /// Скачивание файла
+        /// </summary>
+        /// <param name="botClient">Телеграм бот</param>
+        /// <param name="message">ID файла</param>
+        /// <returns></returns>
+        public static async Task DownloadFile(ITelegramBotClient botClient, String message)
+        {
+            var file = await botClient.GetFileAsync(message);
+            FileStream fileStream = new FileStream( message, FileMode.Create);
+            await botClient.DownloadFileAsync(file.FilePath, fileStream);
+            fileStream.Close();
+
+            fileStream.Dispose();
         }
 
         /// <summary>
