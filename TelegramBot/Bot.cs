@@ -95,6 +95,14 @@ namespace TelegramBot
                     Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
                     await botClient.SendTextMessageAsync(message.Chat, "Фото скачано");
                 }
+
+                // Скачивание видео
+                else if (message.Video != null)
+                {
+                    DownloadFile(botClient, message.Video.FileId,message.Video.FileName);
+
+                    await botClient.SendTextMessageAsync(message.Chat, "Видео скачано");
+                }
             }
 
         }
