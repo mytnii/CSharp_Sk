@@ -62,7 +62,6 @@ namespace TelegramBot
                 var message = update.Message;
 
                 // Обработка сообщений
-
                 if (message.Text != null)
                 {
                     switch (message.Text.ToLower())
@@ -75,11 +74,26 @@ namespace TelegramBot
                             break;
                     } 
                 }
+
+                // Скачивание документов
                 else if(message.Document != null)
                 {
                     DownloadFile(botClient, message.Document.FileId, message.Document.FileName);
 
                     await botClient.SendTextMessageAsync(message.Chat, "Документ скачан");
+                }
+
+                // Скачивание фото
+                else if(message.Photo != null)
+                {
+                    DownloadFile
+                        (
+                        botClient, message.Photo[message.Photo.Length - 1].FileId,
+                        message.Photo[message.Photo.Length - 1].FileUniqueId + ".jpg"
+                        );
+
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
+                    await botClient.SendTextMessageAsync(message.Chat, "Фото скачано");
                 }
             }
 
