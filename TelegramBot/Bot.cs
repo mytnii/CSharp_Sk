@@ -92,7 +92,6 @@ namespace TelegramBot
                         message.Photo[message.Photo.Length - 1].FileUniqueId + ".jpg"
                         );
 
-                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
                     await botClient.SendTextMessageAsync(message.Chat, "Фото скачано");
                 }
 
@@ -102,6 +101,14 @@ namespace TelegramBot
                     DownloadFile(botClient, message.Video.FileId,message.Video.FileName);
 
                     await botClient.SendTextMessageAsync(message.Chat, "Видео скачано");
+                }
+
+                // Скачивание аудио
+                else if (message.Audio != null)
+                {
+                    DownloadFile(botClient, message.Audio.FileId, message.Audio.FileName);
+
+                    await botClient.SendTextMessageAsync(message.Chat, "Аудио скачано");
                 }
             }
 
