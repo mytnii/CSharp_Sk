@@ -17,9 +17,9 @@ namespace TelegramBot
         /// Вывод в консоль
         /// </summary>
         /// <param name="str">Строка</param>
-        public static void ConsoleOutput(string str)
+        public static async Task ConsoleOutput(string str)
         {
-            Console.WriteLine(str);
+             Console.WriteLine(str);
         }
         #endregion
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace TelegramBot
 {
@@ -14,14 +16,28 @@ namespace TelegramBot
         /// <param name="fileName">Название скачаного файла</param>
         /// <returns></returns>
         #region Методы
-        public static async Task FillingAsync(string fileName)
+        public static void Filling(string fileName)
         {
             FileStream fileStram = new FileStream("uploadedFiles.txt", FileMode.Append);
-            await fileStram.WriteAsync(Encoding.UTF8.GetBytes(fileName));
 
-            fileStram.Close();
+            StreamWriter streamWriter = new StreamWriter(fileStram);
+
+            streamWriter.WriteLine($"{fileName}#");
+
+            streamWriter.Close();
         }
-     
+
+        public static async Task FileReading(ITelegramBotClient botClient, Update message)
+        {
+            FileStream filestream = new FileStream("uploadedFiles.txt", FileMode.Open);
+            StreamReader streamReader = new StreamReader(filestream);
+            string line = "";
+            while (streamReader.ReadLine != null)
+            {
+                line = streamReader.ReadToEnd();
+                await botClient.SendTextMessageAsync(message.Message.Chat, line);
+            }
+        }
         #endregion
     }
 }

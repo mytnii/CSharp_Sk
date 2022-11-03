@@ -68,6 +68,17 @@ namespace TelegramBot
                     {
                         case "/start":
                             await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать {message.From.FirstName}");
+                                await botClient.SendTextMessageAsync(message.Chat, "Что вы хотели сделать");
+                                await botClient.SendTextMessageAsync
+                                        (
+                                        message.Chat, "/help - информация по существующим командам"
+                                        );
+                                break;
+                        case "/help":
+                            await botClient.SendTextMessageAsync(message.Chat, $"/file_list - отобразить список файлов");
+                            break;
+                        case "/file_list":
+                            await FileHandling.FileReading(botClient, update);
                             break;
                         default:
                             await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
@@ -78,7 +89,9 @@ namespace TelegramBot
                 // Скачивание документов
                 else if(message.Document != null)
                 {
-                    DownloadFile(botClient, message.Document.FileId, message.Document.FileName);
+                    await DownloadFile(botClient, message.Document.FileId, message.Document.FileName);
+
+                    FileHandling.Filling(message.Document.FileName);
 
                     await botClient.SendTextMessageAsync(message.Chat, "Документ скачан");
                 }
@@ -86,11 +99,15 @@ namespace TelegramBot
                 // Скачивание фото
                 else if(message.Photo != null)
                 {
-                    DownloadFile
+                   await DownloadFile
                         (
                         botClient, message.Photo[message.Photo.Length - 1].FileId,
                         message.Photo[message.Photo.Length - 1].FileUniqueId + ".jpg"
                         );
+
+                    FileHandling.Filling(message.Photo[message.Photo.Length - 1].FileUniqueId + ".jpg");
+
+                    Console.WriteLine(message.Photo[message.Photo.Length - 1].FileUniqueId + ".jpg");
 
                     await botClient.SendTextMessageAsync(message.Chat, "Фото скачано");
                 }
@@ -98,7 +115,9 @@ namespace TelegramBot
                 // Скачивание видео
                 else if (message.Video != null)
                 {
-                    DownloadFile(botClient, message.Video.FileId,message.Video.FileName);
+                    await DownloadFile(botClient, message.Video.FileId,message.Video.FileName);
+
+                    FileHandling.Filling(message.Video.FileName);
 
                     await botClient.SendTextMessageAsync(message.Chat, "Видео скачано");
                 }
@@ -106,7 +125,9 @@ namespace TelegramBot
                 // Скачивание аудио
                 else if (message.Audio != null)
                 {
-                    DownloadFile(botClient, message.Audio.FileId, message.Audio.FileName);
+                    await DownloadFile(botClient, message.Audio.FileId, message.Audio.FileName);
+
+                    FileHandling.Filling (message.Audio.FileName);
 
                     await botClient.SendTextMessageAsync(message.Chat, "Аудио скачано");
                 }
