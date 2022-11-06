@@ -9,6 +9,7 @@ using Telegram.Bot;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
 
 namespace TelegramBot
 {
@@ -82,13 +83,23 @@ namespace TelegramBot
                             await botClient.SendTextMessageAsync(message.Chat, FileHandling.FileReading());
                             break;
                         default:
-                            string fileList = FileHandling.FileReading();
-                            string[] fl = fileList.Split(new char[] { ' ' }).ToArray();
-                            for(int i = 0; i < fl.Length; i++)
+                            if (str[0][0] == '/')
                             {
-                                Console.WriteLine(fl[i]);
+                                str[0] = str[0].Trim('/');
+                                var stream = System.IO.File.OpenRead
+                                    (
+                                    $@"C:\Projekts\SkillBox\CSharp_Developer\TelegramBot\bin\Debug\net6.0\{str[0]}.pdf"
+                                    );
+                                InputOnlineFile iof = new InputOnlineFile(stream);
+                                iof.FileName = $"{str[0]}.pdf";
+                                await botClient.SendDocumentAsync(message.Chat, iof);
+                                await botClient.SendTextMessageAsync(message.Chat, "Файл скачан");
                             }
+                            else
+                            {
                             await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
+
+                            }
                             break;
                     } 
                 }
