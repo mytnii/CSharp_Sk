@@ -64,11 +64,12 @@ namespace TelegramBot
                 // Обработка сообщений
                 if (message.Text != null)
                 {
-                    switch (message.Text.ToLower())
+                    
+                    string[] str = message.Text.Split(new char[] { '@' });
+                    switch (str[0].ToLower())
                     {
                         case "/start":
                             await botClient.SendTextMessageAsync(message.Chat, $"Добро пожаловать {message.From.FirstName}");
-                                await botClient.SendTextMessageAsync(message.Chat, "Что вы хотели сделать");
                                 await botClient.SendTextMessageAsync
                                         (
                                         message.Chat, "/help - информация по существующим командам"
@@ -78,9 +79,15 @@ namespace TelegramBot
                             await botClient.SendTextMessageAsync(message.Chat, $"/file_list - отобразить список файлов");
                             break;
                         case "/file_list":
-                            await FileHandling.FileReading(botClient, update);
+                            await botClient.SendTextMessageAsync(message.Chat, FileHandling.FileReading());
                             break;
                         default:
+                            string fileList = FileHandling.FileReading();
+                            string[] fl = fileList.Split(new char[] { ' ' }).ToArray();
+                            for(int i = 0; i < fl.Length; i++)
+                            {
+                                Console.WriteLine(fl[i]);
+                            }
                             await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
                             break;
                     } 

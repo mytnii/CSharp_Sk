@@ -22,21 +22,23 @@ namespace TelegramBot
 
             StreamWriter streamWriter = new StreamWriter(fileStram);
 
-            streamWriter.WriteLine($"{fileName}#");
+            fileName = fileName.Replace("-", "_");
+            streamWriter.WriteLine($"/{fileName}");
 
             streamWriter.Close();
         }
 
-        public static async Task FileReading(ITelegramBotClient botClient, Update message)
+        public static string FileReading()
         {
             FileStream filestream = new FileStream("uploadedFiles.txt", FileMode.Open);
             StreamReader streamReader = new StreamReader(filestream);
+
             string line = "";
-            while (streamReader.ReadLine != null)
-            {
-                line = streamReader.ReadToEnd();
-                await botClient.SendTextMessageAsync(message.Message.Chat, line);
-            }
+            line = streamReader.ReadToEnd();
+
+            streamReader.Close();
+
+            return line;
         }
         #endregion
     }
