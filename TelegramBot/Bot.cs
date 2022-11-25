@@ -59,7 +59,7 @@ namespace TelegramBot
             // Обработка сообщений
             if(update.Type == UpdateType.Message)
             {
-                //Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
                 var message = update.Message;
 
                 // Обработка сообщений
@@ -97,7 +97,7 @@ namespace TelegramBot
                             }
                             else
                             {
-                            await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
+                                await botClient.SendTextMessageAsync(message.Chat, "Немогу обработать данное сообщение");
 
                             }
                             break;
