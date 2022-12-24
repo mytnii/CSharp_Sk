@@ -28,6 +28,11 @@ namespace DataConsultant
         {
 
         }
+
+        public Phone(string phoneNumber)
+        {
+            this._phoneNumber = phoneNumber;
+        }
         #endregion
     }
 }
