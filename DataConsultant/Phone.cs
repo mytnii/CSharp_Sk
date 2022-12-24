@@ -22,5 +22,12 @@ namespace DataConsultant
             set { _phoneNumber = value; }
         }
         #endregion
+
+        #region Конструкторы
+        public Phone()
+        {
+
+        }
+        #endregion
     }
 }
