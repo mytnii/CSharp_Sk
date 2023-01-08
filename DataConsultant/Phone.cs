@@ -26,7 +26,7 @@ namespace DataConsultant
         #region Конструкторы
         public Phone()
         {
-
+            this._phoneNumber = "----------------";
         }
 
         public Phone(string phoneNumber)
